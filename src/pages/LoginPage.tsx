@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useUser } from "../context/UserContext"; // adjust path
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { setCurrentUser } = useUser(); // get context setter
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,13 +19,33 @@ const LoginPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", formData);
-    // 👉 Ici tu fais ton appel API connexion
+    setError("");
+    setLoading(true);
+
+    setTimeout(() => {
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      const existingUser = users.find(
+        (u: any) =>
+          u.email === formData.email && u.password === formData.password
+      );
+
+      if (!existingUser) {
+        setError("Email ou mot de passe incorrect !");
+        setLoading(false);
+        return;
+      }
+
+      // Save current user in localStorage and context
+      localStorage.setItem("currentUser", JSON.stringify(existingUser));
+      setCurrentUser(existingUser); // update Navbar immediately
+      setLoading(false);
+      navigate("/"); // redirect home
+    }, 1000);
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* Colonne gauche : Formulaire */}
+      {/* Left Column: Form */}
       <div className="flex-1 bg-white px-12 py-20 flex flex-col overflow-y-auto mt-20">
         <button
           onClick={() => navigate(-1)}
@@ -37,7 +61,6 @@ const LoginPage = () => {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email */}
             <input
               type="email"
               name="email"
@@ -47,8 +70,6 @@ const LoginPage = () => {
               className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-marron"
               required
             />
-
-            {/* Password */}
             <input
               type="password"
               name="password"
@@ -59,7 +80,6 @@ const LoginPage = () => {
               required
             />
 
-            {/* Lien mot de passe oublié */}
             <div className="flex justify-end">
               <button
                 type="button"
@@ -70,13 +90,38 @@ const LoginPage = () => {
               </button>
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-marron text-white py-3 rounded-full font-semibold hover:bg-marron/90 transition"
+              className="w-full bg-marron text-white py-3 rounded-full font-semibold hover:bg-marron/90 transition flex justify-center items-center"
+              disabled={loading}
             >
-              Se connecter
+              {loading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+              ) : (
+                "Se connecter"
+              )}
             </button>
+
+            {error && <p className="text-red-500 mt-2">{error}</p>}
           </form>
 
           <p className="mt-6 text-sm text-gray-600">
@@ -91,8 +136,8 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Colonne droite : Image */}
-       <div className="hidden lg:flex flex-1 sticky top-0 h-screen mt-20">
+      {/* Right Column: Image */}
+      <div className="hidden lg:flex flex-1 sticky top-0 h-screen mt-20">
         <img
           src="/AI-Crafted Iced Coffee Delights_ Cappuccino, Latte Macchiato & More! ☕️🌞.jpg"
           alt="Boissons"
