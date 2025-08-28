@@ -45,10 +45,15 @@ export default function Carriere() {
         />
       </div>
       <div className="p-4 flex flex-col items-center w-full space-y-3">
-        <Button variant="outline" className="rounded-full px-6 py-2 w-full text-white">
-          Rejoignez-nous
-        </Button>
-      </div>
+  <Button
+    variant="outline"
+    className="rounded-full px-6 py-2 w-full text-white"
+    onClick={() => window.open("https://form.jotform.com/252395859338574", "_blank")}
+  >
+    Rejoignez-nous
+  </Button>
+</div>
+
     </CardContent>
   </Card>
 
