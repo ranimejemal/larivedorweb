@@ -393,34 +393,46 @@ const filteredResults =
                {/* Sticky Tabs + Search Bar */}
 <div className="sticky top-32 z-50 bg-black w-full px-4 py-4">
   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-    {/* Tabs or Recherche label */}
-    {!activeItem && !activeCategory && (
-      <>
-        {activeTab === "Recherche" ? (
-          <h1 className="text-4xl md:text-5xl text-[#ffffff] font-sodo mb-2">
-            Recherche
-          </h1>
-        ) : (
-          <div className="flex gap-8 font-sodo text-sm">
-            {["Menu", "En vedette"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`pb-2 text-lg md:text-sm font-sodo ${
-                  activeTab === tab
-                    ? "border-b-2 border-[#804d2b] text-[#804d2b]"
-                    : "text-gray-300 hover:text-[#804d2b] transition-colors duration-150"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        )}
-      </>
+    
+    {/* Search Tab / Retour */}
+    {!activeItem && !activeCategory && activeTab === "Recherche" && (
+      <div className="flex flex-col gap-2">
+        <button
+          onClick={() => {
+            setActiveTab("Menu");
+            setSearchQuery(""); // clear search when returning
+          }}
+          className="flex items-center gap-1 text-sm font-medium text-white hover:text-[#ffffff] transition-colors font-sodo"
+        >
+          <span className="text-base font-sodo">&lt;</span>
+          <span>Retour</span>
+        </button>
+        <h1 className="text-4xl md:text-5xl text-[#ffffff] font-sodo">
+          Recherche
+        </h1>
+      </div>
     )}
 
-    {/* Search bar */}
+    {/* Tabs */}
+    {!activeItem && !activeCategory && activeTab !== "Recherche" && (
+      <div className="flex gap-8 font-sodo text-sm">
+        {["Menu", "En vedette"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`pb-2 text-lg md:text-sm font-sodo ${
+              activeTab === tab
+                ? "border-b-2 border-[#804d2b] text-[#804d2b]"
+                : "text-gray-300 hover:text-[#804d2b] transition-colors duration-150"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+    )}
+
+    {/* Search Bar */}
     <div className="relative w-full max-w-md">
       <div className="flex items-center gap-2 text-white bg-[#000000] rounded-full px-4 py-2">
         <Search size={18} />
@@ -436,6 +448,7 @@ const filteredResults =
     </div>
   </div>
 </div>
+
 
 
         
