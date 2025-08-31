@@ -89,7 +89,7 @@ const SignupPage = () => {
               placeholder="* Prénom"
               value={formData.firstName}
               onChange={handleChange}
-              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marron"
+              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 text-black focus:ring-marron"
               required
             />
             <input
@@ -98,7 +98,7 @@ const SignupPage = () => {
               placeholder="* Nom"
               value={formData.lastName}
               onChange={handleChange}
-              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marron"
+              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2  text-black focus:ring-marron"
               required
             />
 
@@ -109,7 +109,7 @@ const SignupPage = () => {
               placeholder="* Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marron"
+              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2  text-black focus:ring-marron"
               required
             />
             <input
@@ -118,20 +118,51 @@ const SignupPage = () => {
               placeholder="* Mot de passe"
               value={formData.password}
               onChange={handleChange}
-              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marron"
+              className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2  text-black focus:ring-marron"
               required
             />
 
-            {/* Birthday */}
+             {/* Birthday Section */}
             <div className="border p-4 rounded-md space-y-2">
               <h2 className="font-semibold text-black text-center">Date d'anniversaire (facultatif)</h2>
+              <div className="flex items-center space-x-3">
+                <img src="/bday3.png" alt="Birthday" className="w-40 h-40" />
+                <p className="text-gray-600 text-sm">
+                  Ajoutez votre date de naissance, afin de recevoir nos vœux et un coupon d'anniversaire 🎁
+                </p>
+              </div>
               <input
                 type="date"
                 name="birthDate"
                 value={formData.birthDate}
                 onChange={handleChange}
-                className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marron mt-2"
+                className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-marron mt-2 text-black"
               />
+
+              {/* Has Card toggle */}
+              <div className="flex items-center mt-4">
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" name="hasCard" checked={formData.hasCard} onChange={handleChange} className="sr-only peer" />
+                  <div className="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-blue-500 transition-all"></div>
+                  <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full peer-checked:translate-x-6 transition-all"></div>
+                </label>
+                <span className="ml-3 text-sm font-medium text-black">Vous avez déjà une carte ?</span>
+              </div>
+            </div>
+
+            {/* Newsletter toggle */}
+            <div className="border p-4 rounded-md space-y-2">
+              <h2 className="font-semibold text-black text-center">La Rive D'or® E-Mails</h2>
+              <div className="flex items-center mt-2">
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" name="newsletter" checked={formData.newsletter} onChange={handleChange} className="sr-only peer" />
+                  <div className="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-blue-500 transition-all"></div>
+                  <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full peer-checked:translate-x-6 transition-all"></div>
+                </label>
+                <span className="ml-3 text-sm font-medium text-black">
+                  Oui. Je veux être informé des offres exclusives et nouveautés.
+                </span>
+              </div>
             </div>
 
             {/* Terms */}

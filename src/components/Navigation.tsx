@@ -3,7 +3,11 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { useUser } from "../context/UserContext";
 
-const Navigation = () => {
+interface NavigationProps {
+  handleLogoClick?: () => void;
+}
+
+const Navigation = ({ handleLogoClick }: NavigationProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -107,17 +111,20 @@ const Navigation = () => {
         showNav ? "translate-y-0" : "-translate-y-full"
       } ${location.pathname === "/" ? "bg-transparent" : "bg-black"}`}
     >
-      <div className="container mx-auto px-6 py-4 flex items-center justify-between ">
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div
-          className="cursor-pointer font-sodo text-2xl text-white translate-x-[4rem]"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            handleLogoClick?.();
+            navigate("/");
+          }}
+          className="cursor-pointer font-brownsugar text-2xl text-white  translate-x-[5rem]"
         >
           La Rive D'or
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8 translate-x-[7rem]">
+        <div className="hidden md:flex space-x-[2rem] translate-x-[7rem]">
           <button onClick={() => scrollToSection("home")} className="text-white font-sodo">
             Home
           </button>
@@ -127,19 +134,16 @@ const Navigation = () => {
           <Link to="/shopsection" className="text-white font-sodo">
             Order Now
           </Link>
-          <Link to="/rewardsection" className="text-white font-sodo">
-            Rewards
-          </Link>
           <Link to="/carrieresection" className="text-white font-sodo">
             Carrière
           </Link>
         </div>
 
         {/* Desktop Auth + Trouver un salon */}
-        <div className="hidden md:flex items-center space-x-6 translate-x-1">
+        <div className="hidden md:flex items-center space-x-6 translate-x-[-1rem]">
           <button className="flex items-center space-x-2 text-white font-sodo">
             <MapPin size={18} />
-            <span>Trouver un salon</span>
+            <span>Localisation</span>
           </button>
           {renderAuthButtons()}
         </div>
@@ -172,8 +176,7 @@ const Navigation = () => {
           <Link to="/carrieresection" className="text-white">
             Carrière
           </Link>
-
-          {/* Mobile Auth */}
+          {/* Auth buttons */}
           {renderAuthButtons()}
         </div>
       )}

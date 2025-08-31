@@ -23,6 +23,7 @@ export default {
 				'playfair': ['Playfair Display', 'serif'],
 				'poppins': ['Poppins', 'sans-serif'],
 				'sodo': ['Sodo Sans', 'sans-serif'],
+				'brownsugar': ['BrownSugar', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

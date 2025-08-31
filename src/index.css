@@ -169,3 +169,10 @@ All colors MUST be HSL.
   font-weight: 700;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'BrownSugar';
+  src: url('/fonts/brown-sugar.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
