@@ -12,6 +12,7 @@ import Navigation from "@/components/Navigation";
 import Carriere from "./pages/Carriere";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import DeliveryPage from "./pages/DeliveryPage";
 
 // Import UserProvider from your context
 import { UserProvider } from "./context/UserContext"; // adjust path
@@ -53,6 +54,7 @@ const App = () => {
                 <Route path="/carrieresection" element={<Carriere />} />
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/deliverysection" element={<DeliveryPage/>} />
               </Routes>
             </>
           </BrowserRouter>

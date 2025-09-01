@@ -128,11 +128,11 @@ const Navigation = ({ handleLogoClick }: NavigationProps) => {
           <button onClick={() => scrollToSection("home")} className="text-white font-sodo">
             Home
           </button>
-          <button onClick={() => scrollToSection("menu")} className="text-white font-sodo">
-            Menu
-          </button>
           <Link to="/shopsection" className="text-white font-sodo">
-            Order Now
+            Menu
+          </Link>
+          <Link to="/deliverysection" className="text-white font-sodo">
+            Delivers
           </Link>
           <Link to="/carrieresection" className="text-white font-sodo">
             Carrière
