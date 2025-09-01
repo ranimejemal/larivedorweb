@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import { Search } from "lucide-react";
+import Footer from "@/components/Footer";
 
 const categories = [
   { 
