@@ -1,0 +1,42 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@example.com",
+    "password": "hashedpassword",
+    "birthDate": "2000-08-31",
+    "newsletter": true,
+    "terms": true,
+    "hasCard": false
+  },
+  {
+    "firstName": "Ranime",
+    "lastName": "jemal",
+    "email": "aerosprim@gmail.com",
+    "birthDate": "1999-08-31"
+  },
+  {
+    "firstName": "Ranime",
+    "lastName": "jemal",
+    "email": "syrine.jmal22@gmail.com",
+    "birthDate": "1999-08-31"
+  },
+  {
+    "firstName": "ranime",
+    "lastName": "jmal",
+    "email": "marcoasisstore@gmail.com",
+    "birthDate": "2025-08-31"
+  },
+  {
+    "firstName": "ranime",
+    "lastName": "jmal",
+    "email": "slahjemal22@gmail.com",
+    "birthDate": "2025-08-31"
+  },
+  {
+    "firstName": "ranime",
+    "lastName": "jmal",
+    "email": "gaiaashop@gmail.com",
+    "birthDate": "2025-08-31"
+  }
+]

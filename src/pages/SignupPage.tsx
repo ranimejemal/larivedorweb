@@ -36,32 +36,43 @@ const SignupPage = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.terms) {
-      alert("Vous devez accepter les conditions d'utilisation pour continuer.");
-      return;
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!formData.terms) {
+    alert("Vous devez accepter les conditions d'utilisation pour continuer.");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        birthDate: formData.birthDate || "",
+      }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      throw new Error(data?.error || "Erreur serveur");
     }
 
-    // Load existing users
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
-    const existingUser = users.find((u: FormData) => u.email === formData.email);
-    if (existingUser) {
-      alert("Un compte avec cet email existe déjà. Veuillez vous connecter.");
-      navigate("/login");
-      return;
-    }
-
-    // Save new user
-    users.push(formData);
-    localStorage.setItem("users", JSON.stringify(users));
+    // Save user locally
     localStorage.setItem("currentUser", JSON.stringify(formData));
-
-    // Update context immediately
     setCurrentUser(formData);
+    navigate("/");
 
-    navigate("/"); // redirect home
-  };
+    alert("Inscription réussie !");
+  } catch (err: any) {
+    console.error(err);
+    alert(`Erreur lors de l'inscription: ${err.message || "Veuillez réessayer."}`);
+  }
+};
 
   return (
     <div className="min-h-screen flex">
