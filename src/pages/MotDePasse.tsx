@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "@/Firebase";
+
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
@@ -7,20 +10,26 @@ const ForgotPasswordPage = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setMessage("");
-    setLoading(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setMessage("");
+  setLoading(true);
 
-    // Simulate API request
-    setTimeout(() => {
-      // Here you would normally trigger password reset email
-      setMessage(
-        "Si cet email existe dans notre système, vous recevrez un lien pour réinitialiser votre mot de passe."
-      );
-      setLoading(false);
-    }, 1000);
-  };
+  try {
+    await sendPasswordResetEmail(auth, email);
+    setMessage(
+      "Si cet email existe dans notre système, vous recevrez un lien pour réinitialiser votre mot de passe."
+    );
+  } catch (error: any) {
+    console.error(error);
+    setMessage(
+      "Une erreur est survenue. Veuillez vérifier votre email et réessayer."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen flex">
@@ -48,7 +57,7 @@ const ForgotPasswordPage = () => {
               placeholder="* Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-marron"
+              className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 text-black focus:ring-marron"
               required
             />
 
