@@ -140,13 +140,16 @@ const Navigation = ({ handleLogoClick }: NavigationProps) => {
         </div>
 
         {/* Desktop Auth + Trouver un salon */}
-        <div className="hidden md:flex items-center space-x-6 translate-x-[-1rem]">
-          <button className="flex items-center space-x-2 text-white font-sodo">
-            <MapPin size={18} />
-            <span>Localisation</span>
-          </button>
-          {renderAuthButtons()}
-        </div>
+       <div className="hidden md:flex items-center space-x-6 translate-x-[-1rem]">
+      <button
+        onClick={() => navigate("/localisation")}
+        className="flex items-center space-x-2 text-white font-sodo"
+      >
+        <MapPin size={18} />
+        <span>Localisation</span>
+      </button>
+      {renderAuthButtons()}
+    </div>
 
         {/* Mobile Hamburger */}
         <div className="md:hidden flex items-center">

@@ -17,7 +17,7 @@ export default function ItemDetail() {
 
   if (!item) return <p>Produit non trouvé.</p>;
 
-  const nutrition = item.nutrition; // ✅ Use nutrition from subItemsMap if available
+  const nutrition = item.nutrition; 
 
   return (
     <section className="bg-black min-h-screen text-white">
@@ -96,7 +96,7 @@ export default function ItemDetail() {
 
                 {nutrition.allergens && (
                   <div className="mt-4">
-                    <h3 className="font-semibold"></h3>
+                    <h3 className="font-semibold">Allergens</h3>
                     <p>{nutrition.allergens.join(", ")}</p>
                   </div>
                 )}
@@ -105,7 +105,7 @@ export default function ItemDetail() {
           </div>
         </div>
       </div>
-      <Footer />
+      
     </section>
   );
 }

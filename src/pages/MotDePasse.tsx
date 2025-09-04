@@ -1,45 +1,24 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext"; // adjust path
 
-const LoginPage = () => {
+const ForgotPasswordPage = () => {
   const navigate = useNavigate();
-  const { setCurrentUser } = useUser(); // get context setter
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setMessage("");
     setLoading(true);
 
+    // Simulate API request
     setTimeout(() => {
-      let users = JSON.parse(localStorage.getItem("users") || "[]");
-      const existingUser = users.find(
-        (u: any) =>
-          u.email === formData.email && u.password === formData.password
+      // Here you would normally trigger password reset email
+      setMessage(
+        "Si cet email existe dans notre système, vous recevrez un lien pour réinitialiser votre mot de passe."
       );
-
-      if (!existingUser) {
-        setError("Email ou mot de passe incorrect !");
-        setLoading(false);
-        return;
-      }
-
-      // Save current user in localStorage and context
-      localStorage.setItem("currentUser", JSON.stringify(existingUser));
-      setCurrentUser(existingUser); // update Navbar immediately
       setLoading(false);
-      navigate("/"); // redirect home
     }, 1000);
   };
 
@@ -55,9 +34,11 @@ const LoginPage = () => {
         </button>
 
         <div className="max-w-md ml-auto space-y-6 translate-x-[-11rem]">
-          <h1 className="text-3xl font-sodo mb-4 text-black">Se connecter</h1>
+          <h1 className="text-3xl font-sodo mb-4 text-black">
+            Mot de passe oublié
+          </h1>
           <p className="text-gray-600 mb-6">
-            Connectez-vous à votre compte pour profiter de nos services et avantages.
+            Entrez votre email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -65,31 +46,11 @@ const LoginPage = () => {
               type="email"
               name="email"
               placeholder="* Email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-marron"
               required
             />
-            <input
-              type="password"
-              name="password"
-              placeholder="* Mot de passe"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-marron"
-              required
-            />
-
-           <div className="flex justify-end">
-  <button
-    type="button"
-    onClick={() => navigate("/password")}
-    className="text-sm text-marron hover:underline"
-  >
-    Mot de passe oublié ?
-  </button>
-</div>
-
 
             <button
               type="submit"
@@ -118,20 +79,20 @@ const LoginPage = () => {
                   ></path>
                 </svg>
               ) : (
-                "Se connecter"
+                "Envoyer le lien"
               )}
             </button>
 
-            {error && <p className="text-red-500 mt-2">{error}</p>}
+            {message && <p className="text-green-500 mt-2">{message}</p>}
           </form>
 
           <p className="mt-6 text-sm text-gray-600">
-            Pas encore de compte ?{" "}
+            Retour à{" "}
             <button
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/login")}
               className="text-marron hover:underline"
             >
-              S'inscrire
+              Se connecter
             </button>
           </p>
         </div>
@@ -149,4 +110,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;

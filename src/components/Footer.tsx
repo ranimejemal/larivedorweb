@@ -7,7 +7,7 @@ export default function Footer() {
         {/* Logo + À propos */}
         <div>
           <img
-            src="rvd.ico"
+            src="la rive dor WHITE.png"
             alt="La Rive D'Or"
             className="w-16 mb-4"
           />

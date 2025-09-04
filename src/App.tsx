@@ -19,6 +19,8 @@ import ItemDetail from "@/pages/ItemDetail";
 
 // Import UserProvider from your context
 import { UserProvider } from "./context/UserContext"; // adjust path
+import LocalisationPage from "./pages/Localisation";
+import ForgotPasswordPage from "./pages/MotDePasse";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +61,8 @@ const App = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/deliverysection" element={<DeliveryPage/>} />
                 <Route path="/item/:itemName" element={<ItemDetail />} />
+                <Route path="/localisation" element={<LocalisationPage />} />
+                <Route path="/password" element={<ForgotPasswordPage />} />
               </Routes>
             </>
           </BrowserRouter>
